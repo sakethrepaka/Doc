@@ -1,0 +1,344 @@
+:root {
+  --editor-bg: #f8f9fa;
+  --page-bg: #ffffff;
+  --toolbar-bg: #edf2fa;
+  --toolbar-btn-hover: #dfe3e8;
+  --toolbar-btn-active: #d3e3fd;
+  --text-color: #3c4043;
+  --border-color: #dadce0;
+  --google-blue: #1a73e8;
+  --placeholder-color: #70757a;
+  --shadow-sm: 0 1px 2px 0 rgba(60,64,67,.30), 0 1px 3px 1px rgba(60,64,67,.15);
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  background-color: var(--editor-bg);
+  color: var(--text-color);
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Header / Title Area */
+.editor-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  background-color: #fff;
+}
+
+.doc-icon {
+  color: var(--google-blue);
+  font-size: 24px;
+  margin-right: 12px;
+}
+
+.title-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-title {
+  font-size: 18px;
+  font-weight: 400;
+  border: 1px solid transparent;
+  padding: 2px 8px;
+  border-radius: 4px;
+  outline: none;
+  width: fit-content;
+  min-width: 100px;
+}
+
+.editor-title:hover {
+  border-color: var(--border-color);
+}
+
+.editor-title:focus {
+  border-color: var(--google-blue);
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background-color: var(--toolbar-bg);
+  border-radius: 24px;
+  margin: 8px 16px;
+  box-shadow: none;
+  border: 1px solid transparent;
+  flex-wrap: wrap;
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 20px;
+  background-color: var(--border-color);
+  margin: 0 4px;
+}
+
+.toolbar-btn {
+  background: none;
+  border: none;
+  border-radius: 4px;
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  color: #444;
+}
+
+.toolbar-btn:hover {
+  background-color: var(--toolbar-btn-hover);
+}
+
+.toolbar-btn.active {
+  background-color: var(--toolbar-btn-active);
+  color: var(--google-blue);
+}
+
+.toolbar-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Main Content Area */
+.content-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.editor-page {
+  width: 816px; /* standard 8.5 x 11 ratio approx */
+  min-height: 1056px;
+  background-color: var(--page-bg);
+  box-shadow: var(--shadow-sm);
+  padding: 96px; /* standard 1 inch margins */
+  outline: none;
+  box-sizing: border-box;
+  cursor: text;
+}
+
+.editor-page:empty:before {
+  content: attr(data-placeholder);
+  color: var(--placeholder-color);
+}
+
+/* Typography in Editor */
+.editor-page p {
+  margin: 0 0 1em 0;
+}
+
+.editor-page ul, .editor-page ol {
+  padding-left: 40px;
+  margin-bottom: 1em;
+  list-style-type: disc;
+}
+
+.editor-page ol {
+  list-style-type: decimal;
+}
+
+.editor-page li {
+  display: list-item;
+}
+
+/* Footer / Stats */
+.editor-footer {
+  position: fixed;
+  bottom: 16px;
+  right: 24px;
+  background: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  font-size: 12px;
+  color: var(--placeholder-color);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+
+.loading-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.join-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.join-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.join-card h1 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.join-card p {
+  margin-bottom: 2rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.join-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.join-card input {
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.join-card button {
+  padding: 0.8rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.join-card button:hover {
+  background-color: #1d4ed8;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-list {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  padding-right: 16px;
+}
+
+.user-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: 0.8rem;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.user-count {
+  font-size: 0.8rem;
+  color: #666;
+  margin-left: 0.5rem;
+}
+
+.footer-stats {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-status {
+  font-size: 10px;
+  color: #999;
+}
+
+.footer-status code {
+  background: #eee;
+  padding: 1px 3px;
+  border-radius: 2px;
+}
+
+/* TipTap / ProseMirror */
+.editor-content-root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.tiptap.editor-page {
+  width: 816px;
+  min-height: 1056px;
+  background-color: var(--page-bg);
+  box-shadow: var(--shadow-sm);
+  padding: 96px;
+  outline: none;
+  box-sizing: border-box;
+  cursor: text;
+}
+
+/* Live collaboration cursors (y-prosemirror / TipTap CollaborationCursor) */
+.collaboration-cursor__caret {
+  border-left: 1px solid #0d0d0d;
+  border-right: 1px solid #0d0d0d;
+  margin-left: -1px;
+  margin-right: -1px;
+  pointer-events: none;
+  position: relative;
+  word-break: normal;
+}
+
+.collaboration-cursor__label {
+  border-radius: 3px 3px 3px 0;
+  color: #fff;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 600;
+  left: -1px;
+  line-height: normal;
+  padding: 2px 6px;
+  position: absolute;
+  top: -1.35em;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 50;
+}
+
+.collaboration-cursor__selection {
+  opacity: 0.2;
+}
