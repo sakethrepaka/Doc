@@ -16,6 +16,10 @@ const httpServer = createServer(app);
 const documents = new Map();
 
 // GET /doc/:id → load content
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 app.get('/doc/:id', (req, res) => {
   const { id } = req.params;
   const content = documents.get(id) || "";
