@@ -8,7 +8,7 @@ import { CollaborationCursorYtiptap } from './extensions/collaborationCursorYtip
 import { TextAlign } from '@tiptap/extension-text-align'
 import './App.css'
 
-const YJS_WS_URL = 'ws://doc-production-f168.up.railway.app'
+const YJS_WS_URL = 'wss://doc-production-f168.up.railway.app'
 const API_BASE_URL = 'https://doc-production-f168.up.railway.app'
 
 function useDebounce<T extends (...args: never[]) => void>(callback: T, delay: number) {
