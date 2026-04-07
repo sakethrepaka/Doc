@@ -8,8 +8,8 @@ import { CollaborationCursorYtiptap } from './extensions/collaborationCursorYtip
 import { TextAlign } from '@tiptap/extension-text-align'
 import './App.css'
 
-const YJS_WS_URL = 'ws://localhost:3002'
-const API_BASE_URL = 'http://localhost:3002'
+const YJS_WS_URL = 'ws://doc-production-f168.up.railway.app'
+const API_BASE_URL = 'https://doc-production-f168.up.railway.app'
 
 function useDebounce<T extends (...args: never[]) => void>(callback: T, delay: number) {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
