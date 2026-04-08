@@ -22,16 +22,16 @@ app.get('/health', (req, res) => {
 
 app.get('/doc/:id', (req, res) => {
   const { id } = req.params;
-  const content = documents.get(id) || "";
-  res.json({ content });
+  const doc = documents.get(id) || { content: "", title: "Untitled Document" };
+  res.json(doc);
 });
 
 // POST /doc/:id → save content
 app.post('/doc/:id', (req, res) => {
   const { id } = req.params;
-  const { content } = req.body;
-  documents.set(id, content);
-  console.log(`Saved document ${id}`);
+  const { content, title } = req.body;
+  documents.set(id, { content, title });
+  console.log(`Saved document ${id}: ${title}`);
   res.json({ success: true });
 });
 

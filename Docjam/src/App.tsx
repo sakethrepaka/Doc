@@ -86,6 +86,36 @@ const Icon = ({ name }: { name: string }) => {
           <path d="M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 16c1.05-3.19 4.05-5.5 7.6-5.5 1.95 0 3.73.72 5.12 1.88L13 16h9V7l-3.6 3.6z" />
         </svg>
       )
+    case 'sun':
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z" />
+        </svg>
+      )
+    case 'moon':
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z" />
+        </svg>
+      )
+    case 'h1':
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 12h-2V9h-2v2H8V9H6v6h2v-2h2v2h2v-6h2v6zm5.5-1h-2v1H16v-1c0-.55.45-1 1-1h1V9h-2.5V8H19c.55 0 1 .45 1 1v5c0 .55-.45 1-1 1z" />
+        </svg>
+      )
+    case 'h2':
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 12h-2V9h-2v2H8V9H6v6h2v-2h2v2h2v-6h2v6zm5 0h-4v-1c0-.55.45-1 1-1h2V11h-3v-1h3c.55 0 1 .45 1 1v1c0 .55-.45 1-1 1h-2v1h3v1z" />
+        </svg>
+      )
+    case 'h3':
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 12h-2V9h-2v2H8V9H6v6h2v-2h2v2h2v-6h2v6zm5.5-2c0 .55-.45 1-1 1H16v-1h2.5v-1H17v-1h1.5V10H16V9h2.5c.55 0 1 .45 1 1v1.25c0 .41-.25.75-.61.9.36.15.61.49.61.9V13z" />
+        </svg>
+      )
     default:
       return null
   }
@@ -106,15 +136,19 @@ type CollabBundle = { ydoc: Y.Doc; provider: WebsocketProvider }
 type CollaborativeEditorProps = {
   collab: CollabBundle
   docId: string
+  title: string
+  setTitle: React.Dispatch<React.SetStateAction<string>>
   username: string
   userColor: string
   setStats: React.Dispatch<React.SetStateAction<{ words: number; chars: number }>>
-  saveToBackend: (id: string, content: string) => void
+  saveToBackend: (id: string, content: string, title: string) => void
 }
 
 function CollaborativeEditor({
   collab,
   docId,
+  title,
+  setTitle,
   username,
   userColor,
   setStats,
@@ -124,8 +158,43 @@ function CollaborativeEditor({
   saveRef.current = saveToBackend
   const docIdRef = useRef(docId)
   docIdRef.current = docId
+  const titleRef = useRef(title)
+  titleRef.current = title
 
   const [docBootstrapPending, setDocBootstrapPending] = useState(true)
+
+  // Sync title with Yjs
+  useEffect(() => {
+    const yTitle = collab.ydoc.getText('title')
+    
+    // Update local state when Yjs title changes
+    const onUpdate = () => {
+      const newTitle = yTitle.toString()
+      if (newTitle !== title) {
+        setTitle(newTitle)
+      }
+    }
+    
+    yTitle.observe(onUpdate)
+    
+    // Initial sync
+    if (yTitle.toString()) {
+      setTitle(yTitle.toString())
+    }
+
+    return () => yTitle.unobserve(onUpdate)
+  }, [collab, setTitle])
+
+  // Update Yjs when local title changes (only if it's different)
+  useEffect(() => {
+    const yTitle = collab.ydoc.getText('title')
+    if (yTitle.toString() !== title) {
+      collab.ydoc.transact(() => {
+        yTitle.delete(0, yTitle.length)
+        yTitle.insert(0, title)
+      })
+    }
+  }, [title, collab])
 
   const editor = useEditor(
     {
@@ -166,7 +235,7 @@ function CollaborativeEditor({
         const text = ed.getText()
         const words = text.trim() ? text.trim().split(/\s+/).length : 0
         setStats({ words, chars: text.length })
-        saveRef.current(docIdRef.current, ed.getHTML())
+        saveRef.current(docIdRef.current, ed.getHTML(), titleRef.current)
       },
     },
     [collab],
@@ -215,6 +284,10 @@ function CollaborativeEditor({
           const text = editor.getText()
           const words = text.trim() ? text.trim().split(/\s+/).length : 0
           setStats({ words, chars: text.length })
+        }
+        if (data.title && typeof data.title === 'string') {
+          console.log('Setting title to', data.title)
+          setTitle(data.title)
         }
         seedFinished = true
       } catch (e) {
@@ -282,6 +355,9 @@ function CollaborativeEditor({
       underline: false,
       bulletList: false,
       orderedList: false,
+      h1: false,
+      h2: false,
+      h3: false,
       alignLeft: false,
       alignCenter: false,
       alignRight: false,
@@ -397,19 +473,42 @@ function App() {
     return localStorage.getItem('docjam-username') || `User-${Math.floor(Math.random() * 1000)}`
   })
   const [isJoined, setIsJoined] = useState<boolean>(!!localStorage.getItem('docjam-username'))
-  const [title, setTitle] = useState<string>('Untitled Document')
+  const [title, setTitle] = useState<string>('')
+
+  useEffect(() => {
+    localStorage.setItem(`docjam-title-${docId}`, title)
+  }, [title, docId])
   const [stats, setStats] = useState({ words: 0, chars: 0 })
-  const [users, setUsers] = useState<{ name: string; color: string }[]>([])
+  const [users, setUsers] = useState<{ name: string; color: string; lastActive?: number }[]>([])
   const [collab, setCollab] = useState<CollabBundle | null>(null)
+  const [now, setNow] = useState(() => Date.now())
+
+  useEffect(() => {
+    const interval = setInterval(() => setNow(Date.now()), 10000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    return localStorage.getItem('docjam-darkmode') === 'true'
+  })
+
+  useEffect(() => {
+    localStorage.setItem('docjam-darkmode', isDarkMode.toString())
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode')
+    } else {
+      document.body.classList.remove('dark-mode')
+    }
+  }, [isDarkMode])
 
   const userColor = useMemo(() => colorForUsername(username), [username])
 
-  const saveToBackend = useDebounce(async (id: string, content: string) => {
+  const saveToBackend = useDebounce(async (id: string, content: string, title: string) => {
     try {
       await fetch(`${API_BASE_URL}/doc/${id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content }),
+        body: JSON.stringify({ content, title }),
       })
     } catch (err) {
       console.error('Failed to save to backend', err)
@@ -429,23 +528,40 @@ function App() {
 
     const syncUsers = () => {
       const states = Array.from(provider.awareness.getStates().values())
-      setUsers(states.map((s: { user?: { name: string; color: string } }) => s.user).filter(Boolean) as { name: string; color: string }[])
+      setUsers(states.map((s: { user?: { name: string; color: string; lastActive?: number } }) => s.user).filter(Boolean) as { name: string; color: string; lastActive?: number }[])
     }
 
     provider.awareness.on('change', syncUsers)
     syncUsers()
+
+    const updateActivity = () => {
+      provider.awareness.setLocalStateField('user', {
+        name: username,
+        color: userColor,
+        lastActive: Date.now(),
+      })
+    }
+
+    const activityEvents = ['mousedown', 'keydown', 'mousemove', 'touchstart']
+    activityEvents.forEach(event => window.addEventListener(event, updateActivity))
 
     queueMicrotask(() => {
       setCollab({ ydoc, provider })
     })
 
     return () => {
+      activityEvents.forEach(event => window.removeEventListener(event, updateActivity))
       provider.awareness.off('change', syncUsers)
       provider.destroy()
       ydoc.destroy()
       setCollab(null)
     }
   }, [docId, isJoined, username, userColor])
+
+  useEffect(() => {
+    if (!isJoined || !collab) return
+    saveToBackend(docId, collab.ydoc.getXmlFragment('default').toString(), title)
+  }, [title, docId, isJoined, collab, saveToBackend])
 
   useEffect(() => {
     window.history.pushState({}, '', `/doc/${docId}`)
@@ -488,16 +604,33 @@ function App() {
               className="editor-title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Untitled Document"
+              placeholder=""
             />
           </div>
         </div>
         <div className="user-list">
-          {users.map((user, i) => (
-            <div key={i} className="user-badge" style={{ backgroundColor: user.color }} title={user.name}>
-              {user.name.charAt(0).toUpperCase()}
-            </div>
-          ))}
+          <button
+            type="button"
+            className="theme-toggle-btn"
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          >
+            <Icon name={isDarkMode ? 'sun' : 'moon'} />
+          </button>
+          <div className="toolbar-divider" style={{ height: '24px', margin: '0 8px' }} />
+          {users.map((user, i) => {
+            const isIdle = user.lastActive && now - user.lastActive > 60000
+            return (
+              <div
+                key={i}
+                className={`user-badge ${isIdle ? 'idle' : ''}`}
+                style={{ backgroundColor: user.color }}
+                title={`${user.name}${isIdle ? ' (Idle)' : ''}`}
+              >
+                {user.name.charAt(0).toUpperCase()}
+              </div>
+            )
+          })}
           <span className="user-count">{users.length} online</span>
         </div>
       </header>
@@ -511,6 +644,8 @@ function App() {
           key={docId}
           collab={collab}
           docId={docId}
+          title={title}
+          setTitle={setTitle}
           username={username}
           userColor={userColor}
           setStats={setStats}

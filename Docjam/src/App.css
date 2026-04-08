@@ -11,6 +11,19 @@
   --shadow-sm: 0 1px 2px 0 rgba(60,64,67,.30), 0 1px 3px 1px rgba(60,64,67,.15);
 }
 
+body.dark-mode {
+  --editor-bg: #1a1c1e;
+  --page-bg: #2d2e31;
+  --toolbar-bg: #3c4043;
+  --toolbar-btn-hover: #4a4d51;
+  --toolbar-btn-active: #5f6368;
+  --text-color: #e8eaed;
+  --border-color: #5f6368;
+  --google-blue: #8ab4f8;
+  --placeholder-color: #9aa0a6;
+  --shadow-sm: 0 4px 6px rgba(0,0,0,0.3);
+}
+
 body {
   margin: 0;
   font-family: 'Roboto', 'Arial', sans-serif;
@@ -29,7 +42,31 @@ body {
   display: flex;
   align-items: center;
   padding: 8px 16px;
-  background-color: #fff;
+  background-color: var(--page-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.theme-toggle-btn {
+  background: none;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: background-color 0.2s;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--toolbar-btn-hover);
+}
+
+.theme-toggle-btn svg {
+  width: 20px;
+  height: 20px;
 }
 
 .doc-icon {
@@ -52,6 +89,8 @@ body {
   outline: none;
   width: fit-content;
   min-width: 100px;
+  background: transparent;
+  color: var(--text-color);
 }
 
 .editor-title:hover {
@@ -99,7 +138,7 @@ body {
   align-items: center;
   justify-content: center;
   transition: background-color 0.2s;
-  color: #444;
+  color: var(--text-color);
 }
 
 .toolbar-btn:hover {
@@ -165,7 +204,7 @@ body {
   position: fixed;
   bottom: 16px;
   right: 24px;
-  background: white;
+  background: var(--page-bg);
   padding: 4px 12px;
   border-radius: 20px;
   box-shadow: var(--shadow-sm);
@@ -175,6 +214,7 @@ body {
   flex-direction: column;
   gap: 4px;
   align-items: flex-end;
+  border: 1px solid var(--border-color);
 }
 
 .loading-overlay {
@@ -183,7 +223,7 @@ body {
   align-items: center;
   height: 100%;
   font-size: 1.2rem;
-  color: #666;
+  color: var(--placeholder-color);
 }
 
 .join-container {
@@ -191,27 +231,28 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f5f5f5;
+  background-color: var(--editor-bg);
 }
 
 .join-card {
-  background: white;
+  background: var(--page-bg);
   padding: 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-sm);
   width: 100%;
   max-width: 400px;
   text-align: center;
+  border: 1px solid var(--border-color);
 }
 
 .join-card h1 {
   margin-bottom: 0.5rem;
-  color: #333;
+  color: var(--text-color);
 }
 
 .join-card p {
   margin-bottom: 2rem;
-  color: #666;
+  color: var(--placeholder-color);
   font-size: 0.9rem;
 }
 
@@ -223,14 +264,16 @@ body {
 
 .join-card input {
   padding: 0.8rem 1rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 1rem;
+  background: var(--editor-bg);
+  color: var(--text-color);
 }
 
 .join-card button {
   padding: 0.8rem;
-  background-color: #2563eb;
+  background-color: var(--google-blue);
   color: white;
   border: none;
   border-radius: 6px;
@@ -241,7 +284,7 @@ body {
 }
 
 .join-card button:hover {
-  background-color: #1d4ed8;
+  opacity: 0.9;
 }
 
 .header-left {
@@ -268,8 +311,53 @@ body {
   color: white;
   font-weight: bold;
   font-size: 0.8rem;
-  border: 2px solid white;
+  border: 2px solid var(--page-bg);
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.user-badge.idle {
+  opacity: 0.5;
+  filter: grayscale(0.5);
+  transform: scale(0.9);
+}
+
+.user-badge.idle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: #ffcc00;
+  border-radius: 50%;
+  border: 2px solid var(--page-bg);
+}
+
+.user-badge:not(.idle)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: #44b700;
+  border-radius: 50%;
+  border: 2px solid var(--page-bg);
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(68, 183, 0, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(68, 183, 0, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(68, 183, 0, 0);
+  }
 }
 
 .user-count {
